@@ -34,7 +34,7 @@ async function getsongs(folder) {
 
     Array.from(document.querySelectorAll(".songslist li")).forEach((e, index) => {
         e.addEventListener("click", () => {
-            playMusic(songs[index].src);
+            playMusic(`/${currFolder}/${songs[index].src}`);
         });
     });
 
@@ -65,28 +65,32 @@ async function Displayalbums() {
 
         if (e.href.includes("/songs/")) {
             let folder = e.href.split("/").splice(-1)[0];
-            let res = await fetch(`/songs/${folder}/playlist.json`);
-            let data = await res.json();
-            cardcontainer.innerHTML += `<div data-folder="${folder}" class="card">
-                <img class="playbutton" src="images/playbutton.svg" alt="playbutton">
-                <img src="${data.songs[0]?.cover || 'images/default.jpg'}" alt="${folder}">
-                <h4 class="font-2 tag">${data.title || folder}</h4>
-                <p class="font-3">${data.description || "No description available"}</p>
-              </div>`;
+            try {
+                let res = await fetch(`/songs/${folder}/playlist.json`);
+                let data = await res.json();
+                cardcontainer.innerHTML += `<div data-folder="${folder}" class="card">
+                    <img class="playbutton" src="images/playbutton.svg" alt="playbutton">
+                    <img src="/songs/${folder}/${data.songs[0]?.cover || 'images/default.jpg'}" alt="${folder}">
+                    <h4 class="font-2 tag">${data.title || folder}</h4>
+                    <p class="font-3">${data.description || "No description available"}</p>
+                  </div>`;
+            } catch (error) {
+                console.log("Error loading playlist.json for:", folder);
+            }
         }
     }
 
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async item => {
             songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
-            playMusic(songs[0].src, false);
+            playMusic(`songs/${item.currentTarget.dataset.folder}/${songs[0].src}`, false);
         });
     });
 }
 
 async function main() {
     await getsongs("songs/happyhits");
-    playMusic(songs[0].src, true);
+    playMusic(`songs/happyhits/${songs[0].src}`, true);
 
     Displayalbums();
 
@@ -124,13 +128,13 @@ async function main() {
     });
 
     prev.addEventListener("click", () => {
-        let index = songs.findIndex(song => song.src === currentSong.src);
-        if (index - 1 >= 0) playMusic(songs[index - 1].src);
+        let index = songs.findIndex(song => `/${currFolder}/${song.src}` === currentSong.src);
+        if (index - 1 >= 0) playMusic(`/${currFolder}/${songs[index - 1].src}`);
     });
 
     next.addEventListener("click", () => {
-        let index = songs.findIndex(song => song.src === currentSong.src);
-        if (index + 1 < songs.length) playMusic(songs[index + 1].src);
+        let index = songs.findIndex(song => `/${currFolder}/${song.src}` === currentSong.src);
+        if (index + 1 < songs.length) playMusic(`/${currFolder}/${songs[index + 1].src}`);
     });
 
     document.querySelector(".range input").addEventListener("change", e => {
