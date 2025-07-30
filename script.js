@@ -3,9 +3,7 @@ let songs;
 let currFolder;
 
 function formatTime(seconds) {
-    if (isNaN(seconds) || seconds < 0) {
-        return "00:00";
-    }
+    if (isNaN(seconds) || seconds < 0) return "00:00";
     let mins = Math.floor(seconds / 60);
     let secs = Math.floor(seconds % 60);
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
@@ -21,39 +19,41 @@ async function getsongs(folder) {
     songul.innerHTML = "";
 
     for (const song of songs) {
-        songul.innerHTML += `<li><img class="invert" src="images/music.svg" alt="music">
+        songul.innerHTML += `<li>
+            <img class="invert" src="images/music.svg" alt="music">
             <div class="songinfo">
-              <div>${song}</div>
-              <div>artist name</div>
+              <div>${song.title}</div>
+              <div>${song.artist}</div>
             </div>
             <div class="playnow flex items-center">
               <span>Play Now</span>
               <img class="invert" src="images/play.svg" alt="">
-            </div> </li>`;
+            </div>
+          </li>`;
     }
 
-    Array.from(document.querySelector(".songslist li")).forEach(e => {
+    Array.from(document.querySelectorAll(".songslist li")).forEach((e, index) => {
         e.addEventListener("click", () => {
-            playMusic(e.querySelector(".songinfo").firstElementChild.innerHTML.trim());
+            playMusic(songs[index].src);
         });
     });
 
     return songs;
 }
 
-const playMusic = (track, pause = false) => {
-    currentSong.src = `/${currFolder}/` + track;
+const playMusic = (src, pause = false) => {
+    currentSong.src = src;
     if (!pause) {
         currentSong.play();
         play.src = "images/pause.svg";
     }
-    document.querySelector(".songsinfo").innerHTML = decodeURI(track);
-    document.querySelector(".songtime").innerHTML = "00:00/00:00";
-}
+    document.querySelector(".songsinfo").innerHTML = decodeURI(src.split("/").pop().replace(".mp3", ""));
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+};
 
 async function Displayalbums() {
-    let a = await fetch(`/songs/`);
-    let response = await a.text();
+    let res = await fetch(`/songs/`);
+    let response = await res.text();
     let div = document.createElement("div");
     div.innerHTML = response;
     let anchors = div.getElementsByTagName("a");
@@ -67,11 +67,11 @@ async function Displayalbums() {
             let folder = e.href.split("/").splice(-1)[0];
             let res = await fetch(`/songs/${folder}/playlist.json`);
             let data = await res.json();
-            cardcontainer.innerHTML += `<div data-folder = "${folder}" class="card"> 
+            cardcontainer.innerHTML += `<div data-folder="${folder}" class="card">
                 <img class="playbutton" src="images/playbutton.svg" alt="playbutton">
-                <img src="/songs/${folder}/cover.jpg" alt="${folder}">
-                <h4 class="font-2 tag">${data.title}</h4>
-                <p class="font-3">${data.description}</p>
+                <img src="${data.songs[0]?.cover || 'images/default.jpg'}" alt="${folder}">
+                <h4 class="font-2 tag">${data.title || folder}</h4>
+                <p class="font-3">${data.description || "No description available"}</p>
               </div>`;
         }
     }
@@ -79,14 +79,14 @@ async function Displayalbums() {
     Array.from(document.getElementsByClassName("card")).forEach(e => {
         e.addEventListener("click", async item => {
             songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
-            playMusic(songs[0], false);
+            playMusic(songs[0].src, false);
         });
     });
 }
 
 async function main() {
     await getsongs("songs/happyhits");
-    playMusic(songs[0], true);
+    playMusic(songs[0].src, true);
 
     Displayalbums();
 
@@ -124,18 +124,13 @@ async function main() {
     });
 
     prev.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").splice(-1)[0]);
-        if (index - 1 >= 0) {
-            playMusic(songs[index - 1]);
-        }
+        let index = songs.findIndex(song => song.src === currentSong.src);
+        if (index - 1 >= 0) playMusic(songs[index - 1].src);
     });
 
     next.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").splice(-1)[0]);
-        if (index + 1 < songs.length) {
-            currentSong.pause();
-            playMusic(songs[index + 1]);
-        }
+        let index = songs.findIndex(song => song.src === currentSong.src);
+        if (index + 1 < songs.length) playMusic(songs[index + 1].src);
     });
 
     document.querySelector(".range input").addEventListener("change", e => {

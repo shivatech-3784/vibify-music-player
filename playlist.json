@@ -1,0 +1,86 @@
+[
+  {
+    "title": "1- Mr. Perfect",
+    "artist": "Aarya-2",
+    "src": "songs/Aarya-2/1- Mr. Perfect.mp3",
+    "cover": "songs/Aarya-2/cover.jpg"
+  },
+  {
+    "title": "Ae Dil Hai Mushkil Title Track - Ae Dil Hai Mushkil",
+    "artist": "Aedil_hai_mushkil",
+    "src": "songs/Aedil_hai_mushkil/Ae Dil Hai Mushkil Title Track - Ae Dil Hai Mushkil.mp3",
+    "cover": "songs/Aedil_hai_mushkil/cover.jpg"
+  },
+  {
+    "title": "Abrars Entry Jamal Kudu - Animal",
+    "artist": "bollywood",
+    "src": "songs/bollywood/Abrars Entry Jamal Kudu - Animal.mp3",
+    "cover": "songs/bollywood/cover.jpg"
+  },
+  {
+    "title": "All Hail The Tiger",
+    "artist": "Devara",
+    "src": "songs/Devara/All Hail The Tiger.mp3",
+    "cover": "songs/Devara/cover.jpg"
+  },
+  {
+    "title": "Achyutham Keshavam",
+    "artist": "devotional",
+    "src": "songs/devotional/Achyutham Keshavam.mp3",
+    "cover": "songs/devotional/cover.jpg"
+  },
+  {
+    "title": "Astronaut-In-The-Ocean",
+    "artist": "Englishsongs",
+    "src": "songs/Englishsongs/Astronaut-In-The-Ocean.mp3",
+    "cover": "songs/Englishsongs/cover.jpg"
+  },
+  {
+    "title": "Chal Chal Re",
+    "artist": "happyhits",
+    "src": "songs/happyhits/Chal Chal Re.mp3",
+    "cover": "songs/happyhits/cover.jpg"
+  },
+  {
+    "title": "Ki Meri Mehak Te Ringtone",
+    "artist": "instatrend",
+    "src": "songs/instatrend/Ki Meri Mehak Te Ringtone.mp3",
+    "cover": "songs/instatrend/cover.jpg"
+  },
+  {
+    "title": "Anbenum",
+    "artist": "Leo",
+    "src": "songs/Leo/Anbenum.mp3",
+    "cover": "songs/Leo/cover.jpg"
+  },
+  {
+    "title": "Gango Renuka Thalli",
+    "artist": "pushpa-2",
+    "src": "songs/pushpa-2/Gango Renuka Thalli.mp3",
+    "cover": "songs/pushpa-2/cover.jpg"
+  },
+  {
+    "title": "Baby Won't You Tell Me",
+    "artist": "sahoo",
+    "src": "songs/sahoo/Baby Won't You Tell Me.mp3",
+    "cover": "songs/sahoo/cover.jpg"
+  },
+  {
+    "title": "Bhaga Bhaga",
+    "artist": "saripodha_sanivaram",
+    "src": "songs/saripodha_sanivaram/Bhaga Bhaga.mp3",
+    "cover": "songs/saripodha_sanivaram/cover.jpg"
+  },
+  {
+    "title": "Adiye",
+    "artist": "Tamil",
+    "src": "songs/Tamil/Adiye.mp3",
+    "cover": "songs/Tamil/cover.jpg"
+  },
+  {
+    "title": "Blockbuster Pongal",
+    "artist": "Telugu",
+    "src": "songs/Telugu/Blockbuster Pongal.mp3",
+    "cover": "songs/Telugu/cover.jpg"
+  }
+]
