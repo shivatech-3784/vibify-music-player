@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 30 120 100" width="64" height="64">
+  <g fill="black">
+    <rect x="40" y="60" width="10" height="40" rx="2"/>
+    <rect x="60" y="40" width="10" height="80" rx="2"/>
+    <rect x="80" y="60" width="10" height="40" rx="2"/>
+    <circle cx="25" cy="80" r="6"/>   <!-- moved left -->
+    <circle cx="105" cy="80" r="6"/>  <!-- moved right -->
+  </g>
+</svg>
